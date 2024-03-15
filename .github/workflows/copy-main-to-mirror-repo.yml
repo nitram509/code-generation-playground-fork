@@ -12,10 +12,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: 'prepare files to copy'
-        run: |
-          mkdir to-copy
-          rsync -a -v --exclude .git . to-copy/
-      - name: Copy all files to the mirror repo
+        run: rsync -a -v --exclude .git . to-copy/
+      - name: 'copy all files to the mirror repo'
         uses: cpina/github-action-push-to-another-repository@v1.7.2
         env:
           SSH_DEPLOY_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
@@ -23,7 +21,8 @@ jobs:
           source-directory: 'to-copy'
           destination-github-username: 'nitram509'
           destination-repository-name: 'code-generation-playground-fork'
-#          destination-repository-username: 'nitram509'
-#          target-branch: 'main'
-#          user-name: 'nitram509'
-#          user-email: 'maki@bitkings.de'
+          # OPTIONAL parameter
+          # destination-repository-username: 'nitram509'
+          # target-branch: 'main'
+          # user-name: 'nitram509'
+          # user-email: 'maki@bitkings.de'
